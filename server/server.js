@@ -13,6 +13,13 @@ app.get(['/', '/login', '/signup'], (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
+app.get(
+  ['/listings', '/settings'],
+  /*TO DO: INSERT MIDDLEWARE HERE*/ (req, res) => {
+    res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
+  }
+);
+
 // login to sign up
 app.post(
   '/signup',
