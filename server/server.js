@@ -1,6 +1,9 @@
 const path = require('path');
 const express = require('express');
 
+// import controllers
+const userController = require('./controllers/userController.js');
+
 const PORT = 3000;
 
 const app = express();
@@ -21,6 +24,11 @@ app.get(
 );
 
 // login to sign up
+
+app.post('/login', userController.verifyUser, (req, res) => {
+  res.redirect('/listings');
+});
+
 app.post(
   '/signup',
   /* TO DO: INSERT MIDDLEWARE */ (req, res) => {
