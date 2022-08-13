@@ -10,7 +10,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-CREATE TABLE User (
+CREATE TABLE public.user (
 	"UserID" varchar NOT NULL,
 	"Password" varchar NOT NULL,
 	CONSTRAINT "user_pk" PRIMARY KEY ("UserID")
@@ -19,7 +19,7 @@ CREATE TABLE User (
   OIDS=FALSE
 );
 
-CREATE TABLE Workspace (
+CREATE TABLE public.workspace (
 	"WorkspaceID" varchar NOT NULL,
 	"Workspace_PW" varchar NOT NULL,
 	CONSTRAINT "workspace_pk" PRIMARY KEY ("WorkspaceID")
@@ -28,7 +28,7 @@ CREATE TABLE Workspace (
   OIDS=FALSE
 );
 
-CREATE TABLE Stickies (
+CREATE TABLE public.stickies (
 	"id" integer NOT NULL,
 	"Title" varchar NOT NULL,
 	"Description" varchar NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE Stickies (
   OIDS=FALSE
 );
 
-CREATE TABLE Snacks (
+CREATE TABLE public.snacks (
 	"SnackID" varchar NOT NULL,
 	CONSTRAINT "snacks_pk" PRIMARY KEY ("SnackID")
 ) WITH (
@@ -59,9 +59,9 @@ CREATE TABLE Snacks (
 --   OIDS=FALSE
 -- )
 
-ALTER TABLE Stickies ADD CONSTRAINT "stickies_fk0" FOREIGN KEY ("Snack_ID") REFERENCES  Snacks("SnackID");
-ALTER TABLE Stickies ADD CONSTRAINT "stickies_fk1" FOREIGN KEY ("Assigned_ID") REFERENCES  User("UserID");
-ALTER TABLE Stickies ADD CONSTRAINT "stickies_fk2" FOREIGN KEY ("Workspace_ID") REFERENCES  Workspace("WorkspaceID");
+ALTER TABLE public.stickies ADD CONSTRAINT "stickies_fk0" FOREIGN KEY ("Snack_ID") REFERENCES  public.snacks("SnackID");
+ALTER TABLE public.stickies ADD CONSTRAINT "stickies_fk1" FOREIGN KEY ("Assigned_ID") REFERENCES  public.user("UserID");
+ALTER TABLE public.stickies ADD CONSTRAINT "stickies_fk2" FOREIGN KEY ("Workspace_ID") REFERENCES  public.workspace("WorkspaceID");
 
 -- ALTER TABLE UserWorkspaceJoin ADD CONSTRAINT "userworkspacejoin_fk0" FOREIGN KEY ("User_UserID") REFERENCES  User("UserID");
 -- ALTER TABLE UserWorkspaceJoin ADD CONSTRAINT "userworkspacejoin_fk1" FOREIGN KEY ("Workspace_WorkspaceID") REFERENCES  Workspace("WorkspaceID");
