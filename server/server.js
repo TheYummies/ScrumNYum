@@ -3,36 +3,50 @@ const express = require('express');
 
 // import controllers
 const userController = require('./controllers/userController.js');
+const cookieController = require('./controllers/cookieController.js');
+const sessionController = require('./controllers/sessionController.js');
 
 const PORT = 3000;
-
 const app = express();
+app.use(express.json()); // recognize incoming request as Json Object
+app.use(express.urlencoded({ extended: true })); // parse incoming string or array request
+app.use(cookieParser()); // allow parsing of req.cookies
 
 // serve static assets
 app.use('/src', express.static(path.resolve(__dirname, '../src')));
 
 // get routes
-app.get(['/', '/login', '/signup'], (req, res) => {
+app.get(['/', '/signup'], (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-app.get(
-  ['/listings', '/settings'],
-  /*TO DO: INSERT MIDDLEWARE HERE*/ (req, res) => {
+app.get(['/scrum', '/settings'], sessionController.isLoggedIn, (req, res) => {
+  if (res.locals.signedIn) {
     res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
+  } else {
+    res.redirect('/');
   }
-);
+});
 
 // login to sign up
 
-app.post('/login', userController.verifyUser, (req, res) => {
-  res.redirect('/listings');
-});
+app.post(
+  '/login',
+  userController.verifyUser,
+  cookieCtontroller.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => {
+    res.redirect('/scrum');
+  }
+);
 
 app.post(
   '/signup',
-  /* TO DO: INSERT MIDDLEWARE */ (req, res) => {
-    res.redirect('/listings');
+  userController.createUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req, res) => {
+    res.redirect('/scrum');
   }
 );
 
@@ -49,7 +63,7 @@ app.use((err, req, res, next) => {
     message: { err: 'An error hath occured!' },
   };
   const errorObj = Object.assign(defaultErr, err);
-  return res.status(errorObj.status).send(errorObj);
+  return res.status(errorObj.status).send(errorObj.msg);
 });
 
 app.listen(PORT, () => {
