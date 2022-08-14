@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
 
-  //const [modal, setModal] = useState(false);
-  const [goToSettings, setGoToSettings] = React.useState(false);
-  // const [goToLogin, setGoToLogin] = React.useState(false);
+  let navigate = useNavigate();
 
-  // const toggleModal = () => {
-  //   setModal(!modal); 
-  // };
-
-  if (goToSettings) {
-    return <Navigate to="/settings" />;
+  function handleClick() {
+    navigate('/signup');
   }
-  // if (goToLogin) {
-  //   return <Navigate to="/login" />;
-  // }
 
   return (
     <div>
       <header>Login Page</header>
-      <form>
-      <label htmlFor="userName">Username:</label>
+      <form className="loginForm" id="loginForm" >
       <input type="text" id="userName" placeholder="Enter Username" />
-      <label htmlFor="password">Password:</label>
-      <input type="text" id="password" placeholder="Enter Password" />
-      <button onClick={() => { setGoToSettings(true) }}>Login</button>
+      <input type="password" id="password" placeholder="Enter Password" />
+
+      <button onClick={() => {
+        fetch('/login', {
+          method: 'POST',
+          body: new FormData(document.getElementsByClassName(loginForm)),
+          })
+          .then(console.log('login onClick invoked'))
+          .then(res => res.json())
+          .then(data => console.log(data))
+        }}>
+          Login</button>
+      {/* //Login button makes fetch request onClick, if truthy links to /settings */}
       </form>
-      <button>Sign up</button>
+
+      <button onClick={handleClick} >Sign up</button> 
+
       <Link to='/scrum'>Scrum</Link>
       <Link to='/settings'>Settings</Link>
     </div>
