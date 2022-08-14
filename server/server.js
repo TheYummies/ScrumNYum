@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 // import controllers
 const userController = require('./controllers/userController.js');
@@ -33,9 +34,10 @@ app.get(['/scrum', '/settings'], sessionController.isLoggedIn, (req, res) => {
 app.post(
   '/login',
   userController.verifyUser,
-  cookieCtontroller.setSSIDCookie,
+  cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res) => {
+    console.log('login route complete');
     res.redirect('/scrum');
   }
 );
@@ -46,6 +48,7 @@ app.post(
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res) => {
+    console.log('signup route complete');
     res.redirect('/scrum');
   }
 );

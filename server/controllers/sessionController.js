@@ -1,8 +1,5 @@
 const db = require('../models/models.js');
 
-const Session = require('../models/sessionModel');
-const User = require('../models/userModel');
-
 const sessionController = {};
 
 // IsLoggedIn - find the appropriate session for this request in the database, then verify whether or not the session is still valid.
