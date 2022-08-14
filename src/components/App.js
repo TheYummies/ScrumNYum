@@ -14,7 +14,7 @@ function App() {
       <Route path="/scrum" element={<Scrum />} />
       <Route path="*" element={<Error />} />
     </Routes>
-    </Router>
+  </Router>
   );
 }
 export default App;
