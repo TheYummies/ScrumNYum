@@ -5,8 +5,10 @@ const userController = {};
 // verifyUser - Obtain username and password from the request body, locate the appropriate user in the database, and then authenticate the submitted password against the password stored in the database.
 
 userController.createUser = (req, res, next) => {
-  console.log('in userController.verifyUser');
+  console.log('in userController.createUser');
   const { username, password } = req.body;
+
+  console.log(req.body);
 
   const query = `
   INSERT INTO users (id, password)  
@@ -17,6 +19,7 @@ userController.createUser = (req, res, next) => {
   db.query(query, [username, password])
     .then((response) => {
       res.locals.id = username;
+      return next();
     })
     .catch((err) => {
       return next({
@@ -37,10 +40,9 @@ userController.verifyUser = (req, res, next) => {
   const query = `
   SELECT * 
   FROM users u
-  WHERE u.id = $1
-  `;
+  WHERE u.id = $1  `;
 
-  db.query(query, [login_user])
+  db.query(query, [username])
     .then((result) => {
       if (result.rows.length === 0) {
         console.log('no user in DB');
@@ -53,8 +55,8 @@ userController.verifyUser = (req, res, next) => {
         });
       } else {
         console.log('check password');
-        if ((result.rows[0].password = password)) {
-          res.locals.id = resultID;
+        if (result.rows[0].password === password) {
+          res.locals.id = result.rows[0].id;
           return next();
         } else {
           res.redirect('/signup');

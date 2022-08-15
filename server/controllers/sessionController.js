@@ -10,10 +10,10 @@ sessionController.isLoggedIn = (req, res, next) => {
   const query = `
   SELECT * 
   FROM sessions s
-  WHERE u.id = $1
+  WHERE s.id = $1
   `;
 
-  db.query(query, [req.coookies.ssid])
+  db.query(query, ['anthonylo89'])
     .then((result) => {
       if (result.rows.length > 0) res.locals.signedIn = true;
       else res.locals.signedIn = false;
@@ -34,6 +34,8 @@ sessionController.isLoggedIn = (req, res, next) => {
 sessionController.startSession = (req, res, next) => {
   //write code here
   console.log('in sessionController.startSession');
+
+  console.log('res.locals.id', res.locals.id);
 
   const query = `
   INSERT INTO sessions (id) 

@@ -23,8 +23,10 @@ app.get(['/', '/signup'], (req, res) => {
 
 app.get(['/scrum', '/settings'], sessionController.isLoggedIn, (req, res) => {
   if (res.locals.signedIn) {
+    console.log('user is signed in');
     res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
   } else {
+    console.log('user not logged in');
     res.redirect('/');
   }
 });
