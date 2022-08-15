@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
-    "build": "webpack --mode=production",
+    "build": "webpack --mode=production & npm run start",
     "dev": "concurrently \"cross-env --mode=development webpack-dev-server --hot --color\" \"nodemon ./server/server.js\""
   },
   "repository": {
@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.6",
     "express": "^4.18.1",
     "path": "^0.12.7",
+    "pg": "^8.7.3",
     "postgres": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
