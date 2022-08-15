@@ -5,9 +5,8 @@ const workspacesController = {};
 const createErr = (errInfo) => {
   const { method, type, err } = errInfo;
   return {
-    log: `workspacesController.${method} ${type}: ERROR: ${
-      typeof err === 'object' ? JSON.stringify(err) : err
-    }`,
+    log: `workspacesController.${method} ${type}: ERROR: ${typeof err === 'object' ? JSON.stringify(err) : err
+      }`,
     message: {
       err: `workspacesController.${method}: Incorrect data received`,
     },
@@ -22,21 +21,22 @@ workspacesController.addWorkspace = (req, res, next) => {
     INSERT INTO workspaces (id, workspace_password) 
     VALUES ($1, $2) 
     ON CONFLICT (id) DO NOTHING`;
-    // ON CONFLICT DO WE WANT TO ALERT THE USER THAT IT'S A DUPE?
-  console.log('ws name', req.body.ws_name); 
-  console.log('ws pw', req.body.ws_pw);
+  // ON CONFLICT DO WE WANT TO ALERT THE USER THAT IT'S A DUPE?
+  console.log('request body', req.body)
+
   // to do - check to see if this matches front end req.body
   // REMIND JAVI/AUTUMN THAT WS-NAME NEEDS TO BE WS_NAME
   db.query(query, [req.body.ws_name, req.body.ws_pw])
-    .then(() => {return next()})
-    .catch((err) => {return next(
-      createErr({
-        method: 'addWorkspace',
-        type: 'middleware error',
-        err: err,
-      })
-    );
-  });
+    .then(() => { return next() })
+    .catch((err) => {
+      return next(
+        createErr({
+          method: 'addWorkspace',
+          type: 'middleware error',
+          err: err,
+        })
+      );
+    });
 }
 
 // deleting workspace from workspace table but not returning anything
@@ -47,15 +47,16 @@ workspacesController.deleteWorkspace = (req, res, next) => {
   // does second arg in query method need to be an array even if just one element??
   console.log('this my req name', req.body.ws_name)
   db.query(query, [req.body.ws_name])
-    .then(() => {return next()})
-    .catch((err) => {return next(
-      createErr({
-        method: 'deleteWorkspace',
-        type: 'middleware error',
-        err: err,
-      })
-    );
-  });
+    .then(() => { return next() })
+    .catch((err) => {
+      return next(
+        createErr({
+          method: 'deleteWorkspace',
+          type: 'middleware error',
+          err: err,
+        })
+      );
+    });
 }
 
 // getting workspace from workspace table and returning it
@@ -68,14 +69,15 @@ workspacesController.getWorkspaces = (req, res, next) => {
       res.locals.workspaces = data.rows;
       return next();
     })
-    .catch((err) => {return next(
-      createErr({
-        method: 'getWorkspaces',
-        type: 'middleware error',
-        err: err,
-      })
-    );
-  });
+    .catch((err) => {
+      return next(
+        createErr({
+          method: 'getWorkspaces',
+          type: 'middleware error',
+          err: err,
+        })
+      );
+    });
 }
 
 // update workspace in workspace table but not returning anything

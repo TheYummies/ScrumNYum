@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserSettings from '../UserSettings.jsx';
 import WSSelector from '../WSSelector.jsx';
 import WSSettings from '../WSSettings.jsx';
@@ -6,8 +6,18 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Settings() {
   // state for workspaces
-  const dummyWs = {name: 'The JitHub Zone'}
+  const dummyWs = {id: 'The JitHub Zone'}
   const [workspaces, setWorkspaces] = useState([dummyWs]);
+
+  // get workspaces list from database when page loads
+  useEffect(() => {
+    fetch('api/workspaces')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data);
+        setWorkspaces(data.workspaces)
+      });
+  },[])
 
   return (
     <div className='settings-container'>

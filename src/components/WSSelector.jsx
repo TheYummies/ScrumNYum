@@ -19,7 +19,7 @@ function WSSelector({workspaces, setWorkspaces}) {
           {/* propery reference el.workspace (currently a placeholder value) */}
           {workspaces.map((el) => {
             return (
-              <option value={el.workspace}>{el.workspace}</option>
+              <option value={el.id}>{el.id}</option>
             )
           })}
         </select>

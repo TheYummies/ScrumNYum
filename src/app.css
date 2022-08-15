@@ -7,17 +7,17 @@ body {
   justify-content: space-between;
 }
 
-.scrum-buttons {
+button {
   margin: 2px;
   border-radius: 10px;
   background-color: aliceblue;
 }
 
-.scrum-description-button {
+/* .scrum-description-button {
   margin: 2px;
   border-radius: 10px;
   background-color: aliceblue;
-}
+} */
 
 .stickie-form {
   width: 100%;
@@ -84,8 +84,48 @@ body {
   background-color: crimson;
   display: flex;
   justify-content: center;
+  width: 33%;
+  height: 150px;
+  margin: auto;
+  border: solid;
+  border-radius: 10px;
 }
 
 .ws-dropdown {
   display: block;
+}
+
+.ws-settings-container {
+  background-color: rgb(100, 100, 158);
+  display: flex;
+  justify-content: center;
+  width: 33%;
+  height: 150px;
+  margin: auto;
+  border: solid;
+  border-radius: 10px;
+}
+
+.ws-name-text-box {
+  display: block;
+  margin: auto;
+  margin-top: 45px;
+  margin-bottom: 5px;
+}
+
+.user-settings-container {
+  background-color: orangered;
+  display: flex;
+  justify-content: center;
+  width: 33%;
+  height: 50px;
+  margin: auto;
+  border: solid;
+  border-radius: 10px;
+}
+
+.scrum-header {
+  display: flex;
+  float: right;
+  justify-content: space-between; 
 }
