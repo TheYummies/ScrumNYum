@@ -14,18 +14,25 @@ const createErr = (errInfo) => {
   };
 };
 
+// creates a new stickie and returns it to appear in the start column on frontend (?)
+// post request to api/stickies - WORKS
 stickiesController.createStickies = (req, res, next) => {
-  const fields = ['id', 'description', 'snack_id', 'assigned_id', 'workspace_id'];
-  const values = [];
+  console.log('In stickiesContr create stickies middleware function');
 
-  for (const field of fields) {
-    if (Object.prototype.hasOwnProperty.call(req.body, field)) {values.push(req.body[field]);}
-    else values.push('');
-  }
+  const values = [req.body.id, req.body.description, req.body.snack_id, req.body.assigned_id, req.body.workspace_id];
 
-  const query = 'INSERT INTO stickies (id, description, snack_id, assigned_id, workspace_id) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+  const query = `
+    INSERT INTO stickies (id, description, snack_id, assigned_id, workspace_id) 
+    VALUES ($1, $2, $3, $4, $5)
+    ON CONFLICT (stickie_id) DO NOTHING`;
+  
+  console.log('this my req body', req.body);
+
   db.query(query, values)
-    .then(() => {return next()})
+    .then(() => {
+      console.log('exited query');
+      // res.locals.newStickie = data.rows[0];
+      return next()})
     .catch((err) => {return next(
       createErr({
         method: 'createStickies',
@@ -37,11 +44,12 @@ stickiesController.createStickies = (req, res, next) => {
 }
 
 // get all stickies and return that data
+// get request to api/stickies and returning data - WORKS
 stickiesController.getStickies = (req, res, next) => {
-  const query = 'SELECT * FROM stickies WHERE stickies.id = $1';
-  db.query(query, req.body.id)
+  const query = 'SELECT * FROM stickies';
+  db.query(query)
     .then((data) => {
-      res.locals.workspace = data.rows;
+      res.locals.stickies = data.rows;
       return next();
     })
     .catch((err) => {return next(
@@ -55,18 +63,45 @@ stickiesController.getStickies = (req, res, next) => {
 }
 
 // update a stickie and return that data
+// NOT WORKING - LET'S REVISIT LATER
 stickiesController.updateStickies = (req, res, next) => {
-  const fields = ['id', 'description', 'snack_id', 'assigned_id', 'workspace_id'];
-  const values = [];
+  console.log('In stickiesContr update stickies middleware function');
+  
+  const values = [req.body.stickie_id, req.body.id, req.body.description, req.body.snack_id, req.body.assigned_id, req.body.workspace_id];
 
-  for (const field of fields) {
-    if (Object.prototype.hasOwnProperty.call(req.body, field)) {values.push(req.body[field]);}
-    else values.push('');
-  }
+  // const values = [req.body.description, req.body.stickie_id];
 
-  const query = 'UPDATE stickies SET (description, snack_id, assigned_id, workspace_id) WHERE stickies.id = $1';
+  console.log('values', values);
+  
+  const query = `
+    UPDATE stickies SET
+    ${((req.body.id) ? ' id = $2' : '') + 
+    ((req.body.description) ? ', description = $3' : '') + 
+    ((req.body.snack_id) ? ', snack_id = $4' : '') + 
+    ((req.body.assigned_id) ? ', assigned_id = $5' : '') + 
+    ((req.body.workspace_id) ? ', workspace_id = $6' : '')} 
+     WHERE stickie_id = $1`
+
+  // const query = `UPDATE stickies SET description = $1 WHERE stickie_id = $2`
+
+  // const fields = ['stickie_id', 'id', 'description', 'snack_id', 'assigned_id', 'workspace_id'];
+  // const values = [];
+
+  // for (const field of fields) { 
+  //   if (Object.prototype.hasOwnProperty.call(req.body, field)) {values.push(req.body[field]);}
+  //   else values.push('');
+  // }
+
+  // const sql = `UPDATE stickies SET 
+  //   stickie_id, id, description, snack_id, assigned_id, workspace_id)
+  //   VALUES ($1, $2, $3, $4, $5, $6)
+  //   RETURNING *;`;
+
   db.query(query, values)
-    .then(() => {return next()})
+    .then((data) => {
+      console.log('exited query');
+      res.locals.updatedStickie = data.rows;
+      return next()})
     .catch((err) => {return next(
       createErr({
         method: 'updateStickies',
@@ -78,8 +113,19 @@ stickiesController.updateStickies = (req, res, next) => {
 }
 
 // delete a stickie but not returning anything
+// delete request to api/stickies without returning any data - WORKS
 stickiesController.deleteStickies = (req, res, next) => {
-  const query = 'DELETE FROM workspaces WHERE stickies.id = $1';
-  db.query(query, req.body.id)
-    .then(() => {return next()});
+  const query = 'DELETE FROM stickies WHERE stickies.id = $1';
+  db.query(query, [req.body.stickie_id])
+    .then(() => {return next()})
+    .catch((err) => {return next(
+      createErr({
+        method: 'deleteStickies',
+        type: 'middleware error',
+        err: err,
+      })
+    );
+  });
 }
+
+module.exports = stickiesController;

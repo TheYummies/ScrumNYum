@@ -14,11 +14,14 @@ app.use(express.urlencoded({ extended: true })); // parse incoming string or arr
 app.use(cookieParser()); // allow parsing of req.cookies
 
 // require routers
-const apiRouter = require('./routes/api');
+const apiRouter = require('./routes/api.js');
 
 // serve static assets
 app.use('/src', express.static(path.resolve(__dirname, '../src')));
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+
+// route to apiRouter
+app.use('/api', apiRouter);
 
 // get routes
 app.get(['/', '/signup'], (req, res) => {

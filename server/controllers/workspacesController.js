@@ -1,4 +1,3 @@
-// might need to update models js file before this works
 const db = require('../models/models.js');
 
 const workspacesController = {};
@@ -16,30 +15,62 @@ const createErr = (errInfo) => {
 };
 
 // adding workspace to workspace table but not returning anything
+// post request to api/workspaces without returning any data - WORKS
 workspacesController.addWorkspace = (req, res, next) => {
-  const query = 'INSERT INTO workspaces (id, workspace_password) VALUES ($1, $2)';
-  db.query(query, [req.body.id, req.body.workspace_password])
-    .then(() => {return next()});
+  console.log('in workspacesController.addWorkspace');
+  const query = `
+    INSERT INTO workspaces (id, workspace_password) 
+    VALUES ($1, $2) 
+    ON CONFLICT (id) DO NOTHING`;
+    // ON CONFLICT DO WE WANT TO ALERT THE USER THAT IT'S A DUPE?
+  console.log('ws name', req.body.ws_name); 
+  console.log('ws pw', req.body.ws_pw);
+  // to do - check to see if this matches front end req.body
+  // REMIND JAVI/AUTUMN THAT WS-NAME NEEDS TO BE WS_NAME
+  db.query(query, [req.body.ws_name, req.body.ws_pw])
+    .then(() => {return next()})
+    .catch((err) => {return next(
+      createErr({
+        method: 'addWorkspace',
+        type: 'middleware error',
+        err: err,
+      })
+    );
+  });
 }
 
 // deleting workspace from workspace table but not returning anything
+// delete request to api/workspaces without returning any data - WORKS
 workspacesController.deleteWorkspace = (req, res, next) => {
+  console.log('in workspacesController.deleteWorkspace');
   const query = 'DELETE FROM workspaces WHERE workspaces.id = $1';
-  db.query(query, req.body.id)
-    .then(() => {return next()});
+  // does second arg in query method need to be an array even if just one element??
+  console.log('this my req name', req.body.ws_name)
+  db.query(query, [req.body.ws_name])
+    .then(() => {return next()})
+    .catch((err) => {return next(
+      createErr({
+        method: 'deleteWorkspace',
+        type: 'middleware error',
+        err: err,
+      })
+    );
+  });
 }
 
 // getting workspace from workspace table and returning it
-workspacesController.getWorkspace = (req, res, next) => {
-  const query = 'SELECT * from workspaces WHERE workspaces.id = $1';
-  db.query(query, req.body.id)
+// get request to api/workspaces and returning data - WORKS
+workspacesController.getWorkspaces = (req, res, next) => {
+  console.log('in workspacesController.getWorkspaces');
+  const query = 'SELECT id FROM workspaces';
+  db.query(query)
     .then((data) => {
-      res.locals.workspace = data.rows;
+      res.locals.workspaces = data.rows;
       return next();
     })
     .catch((err) => {return next(
       createErr({
-        method: 'getWorkspace',
+        method: 'getWorkspaces',
         type: 'middleware error',
         err: err,
       })
@@ -48,6 +79,8 @@ workspacesController.getWorkspace = (req, res, next) => {
 }
 
 // update workspace in workspace table but not returning anything
-workspacesController.updateWorkspace = (req, res, next) => {
+// workspacesController.updateWorkspace = (req, res, next) => {
 
-}
+// }
+
+module.exports = workspacesController;
