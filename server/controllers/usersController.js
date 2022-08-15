@@ -1,13 +1,13 @@
 const usersController = {};
 
-usersController.addUser = () => {
+usersController.addUser = (req, res, next) => {
 
 }
 
-usersController.deleteUser = () => {
+usersController.deleteUser = (req, res, next) => {
 
 }
 
-usersController.saveUser = () => {
+usersController.saveUser = (req, res, next) => {
 
 }

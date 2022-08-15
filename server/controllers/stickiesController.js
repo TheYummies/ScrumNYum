@@ -14,7 +14,7 @@ const createErr = (errInfo) => {
   };
 };
 
-stickiesController.createStickies = () => {
+stickiesController.createStickies = (req, res, next) => {
   const fields = ['id', 'description', 'snack_id', 'assigned_id', 'workspace_id'];
   const values = [];
 
@@ -36,18 +36,36 @@ stickiesController.createStickies = () => {
   });
 }
 
-stickiesController.getStickies = () => {
+// get all stickies and return that data
+stickiesController.getStickies = (req, res, next) => {
+  const query = 'SELECT * from stickies WHERE id = $1';
+  db.query(query, req.body.id)
+    .then((data) => {
+      res.locals.workspace = data.rows;
+      return next();
+    })
+    .catch((err) => {return next(
+      createErr({
+        method: 'getWorkspace',
+        type: 'middleware error',
+        err: err,
+      })
+    );
+  });
+}
+
+// update a stickie and return that data
+stickiesController.updateStickies = (req, res, next) => {
 
 }
 
-stickiesController.updateStickies = () => {
-
+// delete a stickie but not returning anything
+stickiesController.deleteStickies = (req, res, next) => {
+  const query = 'DELETE FROM workspaces WHERE id = $1';
+  db.query(query, req.body.id)
+    .then(() => {return next()});
 }
 
-stickiesController.deleteStickies = () => {
-
-}
-
-stickiesController.saveStickies = () => {
+stickiesController.saveStickies = (req, res, next) => {
 
 }
