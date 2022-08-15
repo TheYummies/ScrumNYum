@@ -8,7 +8,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="login-content">
       <header>Login Page</header>
       <form className='loginForm' id='loginForm' method='POST' action='/login'>
         <input
@@ -32,8 +32,8 @@ function Login() {
         <button type='button'>Sign up</button>
       </Link>
 
-      <Link to='/scrum'>Scrum</Link>
-      <Link to='/settings'>Settings</Link>
+      {/* <Link to='/scrum'>Scrum</Link>
+      <Link to='/settings'>Settings</Link> */}
     </div>
   );
 }

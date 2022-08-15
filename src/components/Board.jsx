@@ -13,8 +13,6 @@ function Board(props) {
 
   const dragOver = event => {
     event.preventDefault();
-
-
   }
   
   return (

@@ -2,16 +2,90 @@ body {
   background-color:rgb(177, 245, 245);
 }
 
-.modal, .overlay {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
+.scrum-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-.overlay {
-  background-color: rgba(49,49,49,0.8);
+.scrum-buttons {
+  margin: 2px;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+.scrum-description-button {
+  margin: 2px;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+.stickie-form {
+  width: 100%;
+  justify-content: center;
+}
+
+.stickie-description {
+  display: block;
+  width: 250px;
+  height: 200px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.snack-text {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.board-area {
+  background-color: rgb(175, 175, 226);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  margin-left: 150px;
+  margin-right: 150px;
+  margin-top: 50px;
+  border: solid;
+}
+
+.board {
+  background-color: aliceblue;
+  margin: auto;
+  width: 200px;
+  min-height: 100%;
+  max-height: fit-content;
+  text-align: center;
+  align-content: center;
+  border: solid;
+}
+
+.stickie {
+  background-color: rgb(252, 249, 244);
+  width: 175px;
+  height: 200px;
+  border: solid;
+  margin: auto;
+  overflow: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.login-content {
+  display: flex;
+  justify-content: center;
+}
+
+.ws-selector-container {
+  background-color: crimson;
+  display: flex;
+  justify-content: center;
+}
+
+.ws-dropdown {
+  display: block;
 }
