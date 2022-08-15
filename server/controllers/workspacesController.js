@@ -24,14 +24,14 @@ workspacesController.addWorkspace = (req, res, next) => {
 
 // deleting workspace from workspace table but not returning anything
 workspacesController.deleteWorkspace = (req, res, next) => {
-  const query = 'DELETE FROM workspaces WHERE id = $1';
+  const query = 'DELETE FROM workspaces WHERE workspaces.id = $1';
   db.query(query, req.body.id)
     .then(() => {return next()});
 }
 
 // getting workspace from workspace table and returning it
 workspacesController.getWorkspace = (req, res, next) => {
-  const query = 'SELECT * from workspaces WHERE id = $1';
+  const query = 'SELECT * from workspaces WHERE workspaces.id = $1';
   db.query(query, req.body.id)
     .then((data) => {
       res.locals.workspace = data.rows;
