@@ -4,8 +4,13 @@ function SignUp() {
   return (
     <div>
       <h2>Sign Up</h2>
-      <header>Login Page</header>
-      <form className='signUpForm'>
+      <header>Sign Up Information</header>
+      <form
+        className='signUpForm'
+        id='signUpForm'
+        method='POST'
+        action='/signup'
+      >
         <input
           type='text'
           id='username'
@@ -15,26 +20,11 @@ function SignUp() {
         <input
           type='password'
           id='password'
-          name='username'
+          name='password'
           placeholder='Create Password'
         />
 
-        <button
-          onClick={() => {
-            fetch('/signup', {
-              method: 'POST',
-              body: new FormData(document.getElementsByClassName(loginForm)),
-            })
-              .then((res) => {
-                console.log('create account onClick invoked');
-                res.json();
-              })
-              .then((data) => console.log(data));
-          }}
-        >
-          Create Account
-        </button>
-
+        <button type='submit'>Create Account</button>
         {/* Create account button makes fetch request onClick, if truthy redirect to /settings */}
       </form>
     </div>
