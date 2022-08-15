@@ -1,3 +1,17 @@
 body {
-  background-color:pink;
+  background-color:rgb(177, 245, 245);
+}
+
+.modal, .overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background-color: rgba(49,49,49,0.8);
 }
