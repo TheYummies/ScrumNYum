@@ -15,6 +15,7 @@ app.use(cookieParser()); // allow parsing of req.cookies
 
 // serve static assets
 app.use('/src', express.static(path.resolve(__dirname, '../src')));
+app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
 
 // get routes
 app.get(['/', '/signup'], (req, res) => {

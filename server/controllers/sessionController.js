@@ -13,7 +13,7 @@ sessionController.isLoggedIn = (req, res, next) => {
   WHERE s.id = $1
   `;
 
-  db.query(query, ['anthonylo89'])
+  db.query(query, [req.cookies.ssid])
     .then((result) => {
       if (result.rows.length > 0) res.locals.signedIn = true;
       else res.locals.signedIn = false;

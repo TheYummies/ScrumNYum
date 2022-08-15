@@ -46,13 +46,7 @@ userController.verifyUser = (req, res, next) => {
     .then((result) => {
       if (result.rows.length === 0) {
         console.log('no user in DB');
-        return next({
-          log: 'Express error handler caught unknown middleware error',
-          status: 400,
-          message: {
-            err: 'error in userController.verifyUser - login credentials incorrect',
-          },
-        });
+        res.redirect('/signup');
       } else {
         console.log('check password');
         if (result.rows[0].password === password) {
