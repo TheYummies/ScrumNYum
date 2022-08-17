@@ -16,6 +16,7 @@ userController.createUser = (req, res, next) => {
   ($1, $2)
   `;
 
+  // check if username already exists in db, if not create user or else return to signup page
   db.query(query, [username, password])
     .then((response) => {
       res.locals.id = username;
@@ -42,6 +43,7 @@ userController.verifyUser = (req, res, next) => {
   FROM users u
   WHERE u.id = $1  `;
 
+  // id appears to be the username
   db.query(query, [username])
     .then((result) => {
       if (result.rows.length === 0) {

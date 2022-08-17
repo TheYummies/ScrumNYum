@@ -11,7 +11,8 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 CREATE TABLE public.user (
-	"id" varchar NOT NULL,
+	"id" varchar NOT NULL UNIQUE,
+	-- unique ID is created here
 	"password" varchar NOT NULL,
 	CONSTRAINT "user_pk" PRIMARY KEY ("id")
 ) WITH (

@@ -11,7 +11,7 @@ function Scrum(props) {
   // How to logout?
   // Associating user's stickes w/ their acct and populating them on ws entry
 
-  // dummy card variable
+  // dummy card variable. this is for initial render, may want to remove
   const dummyCard = [{
     'task-title': 'Discuss Github Pronunciation',
     'task-desc': 'Is it github, or jithub?',
@@ -22,9 +22,9 @@ function Scrum(props) {
     'task-desc': 'Is it github, or jithub?',
     snack: 'Trail-Mix'
   },
-];
+  ];
 
-  // set state for cards
+  // set state for cards. default to empty array as state and update state as tasks are submitted
   const [cards, setCards] = useState([...dummyCard]);
 
   // STRETCH FEATURE:
@@ -37,8 +37,10 @@ function Scrum(props) {
     event.preventDefault();
     const taskData = new FormData(event.target);
     const taskObj = Object.fromEntries(taskData.entries());
+    //form is submitted w/ K/V pairs 
     event.target.reset();
-    console.log(taskObj);
+    //resets the form to blank inputs
+    console.log('task obj is: ', taskObj);
     // send get request to DB with task info in body
     // fetch('URL', {
     // method: 'POST',
@@ -78,6 +80,7 @@ function Scrum(props) {
           ></textarea>
           {/* <label htmlFor='snack'>Snack:</label> */}
           <input required type='text' name='snack' className='snack-text' id='snack' placeholder='Snack' ></input>
+          {/* Add a clear button to clean form */}
           <input type='submit' value='Submit' className='scrum-description-button'></input>
         </form>
         {/* 4 columns for our post its (w/ drag and drop ability) */}

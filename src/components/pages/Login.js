@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+// 
 function Login() {
   let navigate = useNavigate();
   function handleClick() {
@@ -34,7 +35,7 @@ function Login() {
           />
 
           <button type='submit'>Login</button>
-          {/* //Login button makes fetch request onClick, if truthy links to /settings */}
+          {/* //Login button makes fetch request onClick, if truthy links to /scrums */}
         </form>
 
         <Link to='/signup'>
