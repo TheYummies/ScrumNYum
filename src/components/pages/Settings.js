@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import UserSettings from '../UserSettings.jsx';
 import WSSelector from '../WSSelector.jsx';
 import WSSettings from '../WSSettings.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Settings() {
+  // state for workspaces
+  const dummyWs = {id: 'The JitHub Zone'}
+  const [workspaces, setWorkspaces] = useState([dummyWs]);
 
-  // Went witih logout button for simplicity here instead of dropdown on navbar
+  // get workspaces list from database when page loads
+  useEffect(() => {
+    fetch('api/workspaces')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data', data);
+        setWorkspaces(data.workspaces)
+      });
+  },[])
+
   return (
     <div className='settings-container'>
       <header className='settings-header'>
@@ -17,9 +29,9 @@ function Settings() {
       </header>
       <main className='settings-main'>
         {/* Workpsace Selector - Select a WS */}
-        <WSSelector />
+        <WSSelector workspaces={workspaces} setWorkspaces={setWorkspaces}/>
         {/* Workspace Settings - Create a WS */}
-        <WSSettings />
+        <WSSettings workspaces={workspaces} setWorkspaces={setWorkspaces}/>
         {/* User Settings - Join/Leave*/}
         <UserSettings />
       </main>

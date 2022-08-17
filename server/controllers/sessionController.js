@@ -43,6 +43,7 @@ sessionController.startSession = (req, res, next) => {
   ($1)
   ON CONFLICT (id) DO NOTHING
   `;
+  // what is ON CONFLICT (id) DO NOTHING??
 
   db.query(query, [res.locals.id])
     .then((response) => {
