@@ -3,6 +3,7 @@ import UserSettings from '../UserSettings.jsx';
 import WSSelector from '../WSSelector.jsx';
 import WSSettings from '../WSSettings.jsx';
 import { Link, useNavigate } from 'react-router-dom';
+import Nav from './Nav.jsx';
 
 function Settings() {
   // state for workspaces
@@ -15,16 +16,19 @@ function Settings() {
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
-        setWorkspaces(data.workspaces)
+        setWorkspaces(data.workspaces);
       });
-  }, [])
+  }, []);
 
   return (
     <div className='settings-container'>
+      <Nav />
       <header className='settings-header'>
         <h1>Settings</h1>
         <nav className='settings-nav'>
-          <button>Logout</button>
+          <Link to='/' className='scrum-buttons'>
+            Logout
+          </Link>
         </nav>
       </header>
       <main className='settings-main'>
@@ -36,7 +40,7 @@ function Settings() {
         <UserSettings />
       </main>
     </div>
-  )
+  );
 }
 
 export default Settings;
