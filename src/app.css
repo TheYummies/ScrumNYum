@@ -1,5 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color:rgb(177, 245, 245);
+  background-color: rgba(177, 245, 245, 0.76);
 }
 
 .scrum-header {
@@ -51,6 +57,7 @@ button {
   margin-right: 150px;
   margin-top: 50px;
   border: solid;
+  min-height: 90vh;
 }
 
 .board {
@@ -127,5 +134,9 @@ button {
 .scrum-header {
   display: flex;
   float: right;
-  justify-content: space-between; 
+  justify-content: space-between;
+}
+
+.scrum-buttons:hover {
+  cursor: pointer;
 }

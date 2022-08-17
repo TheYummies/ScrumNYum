@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Settings() {
   // state for workspaces
-  const dummyWs = {id: 'The JitHub Zone'}
+  const dummyWs = { id: 'The JitHub Zone' };
   const [workspaces, setWorkspaces] = useState([dummyWs]);
 
   // get workspaces list from database when page loads
@@ -15,28 +15,30 @@ function Settings() {
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
-        setWorkspaces(data.workspaces)
+        setWorkspaces(data.workspaces);
       });
-  },[])
+  }, []);
 
   return (
     <div className='settings-container'>
       <header className='settings-header'>
         <h1>Settings</h1>
         <nav className='settings-nav'>
-          <button>Logout</button>
+          <Link to='/' className='scrum-buttons'>
+            Logout
+          </Link>
         </nav>
       </header>
       <main className='settings-main'>
         {/* Workpsace Selector - Select a WS */}
-        <WSSelector workspaces={workspaces} setWorkspaces={setWorkspaces}/>
+        <WSSelector workspaces={workspaces} setWorkspaces={setWorkspaces} />
         {/* Workspace Settings - Create a WS */}
-        <WSSettings workspaces={workspaces} setWorkspaces={setWorkspaces}/>
+        <WSSettings workspaces={workspaces} setWorkspaces={setWorkspaces} />
         {/* User Settings - Join/Leave*/}
         <UserSettings />
       </main>
     </div>
-  )
+  );
 }
 
 export default Settings;
