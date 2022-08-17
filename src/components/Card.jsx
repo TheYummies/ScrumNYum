@@ -11,10 +11,12 @@ function Card(props) {
   const dragOver = event => {
     event.stopPropagation();
   }
-  
+
   return (
     <div className='stickie' id={props.id} onDragStart={dragStart} onDragOver={dragOver} draggable='true'>
+      {/* generic label that don't know children ahead of time */}
       {props.children}
+      {/* displays the map prop drilled from scrum?? (card) */}
     </div>
   )
 }
