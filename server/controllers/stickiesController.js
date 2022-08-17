@@ -20,9 +20,11 @@ stickiesController.createStickies = (req, res, next) => {
 
   console.log(req.body);
 
+  console.log('workspace cookies is: ', req.cookies.workspace);
+
   const { taskTitle, taskDesc } = req.body;
   // NOTE: workspace_ID is hard-coded as 1 for now
-  const values = [taskTitle, taskDesc, '9'];
+  const values = [taskTitle, taskDesc, req.cookies.workspace];
 
   // const values = [task-title, task-desc, snack]
   console.log('stickies values: ', values);

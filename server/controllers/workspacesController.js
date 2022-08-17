@@ -13,14 +13,39 @@ const createErr = (errInfo) => {
   };
 };
 
+workspacesController.findWorkspaceID = (req, res, next) => {
+  // grab user id
+  // workspace name
+
+  console.log('in findWSID, body:', req.body);
+
+  // grabbing parameters from request
+  // const { userID, workspacename } = req.body
+  const { wsName } = req.body;
+  const userID = req.cookies.ssid;
+
+  const query = `SELECT id FROM workspace
+WHERE workspace_name = $1 AND user_id = $2;`;
+
+  // find the workspace ID based on USER ID and workspace name params
+  db.query(query, [wsName, userID])
+    .then((key) => {
+      console.log('key is: ', key);
+      res.cookie('workspace', key.rows[0].id, { httpOnly: true })
+      return next()
+    })
+
+  // then store workspaceID in res.locals
+}
 // adding workspace to workspace table but not returning anything
 // post request to api/workspaces without returning any data - WORKS
 workspacesController.addWorkspace = (req, res, next) => {
   console.log('in workspacesController.addWorkspace');
-
   const { wsName } = req.body;
+  const userId = req.cookies.ssid;
+  // console.log('req:', req)
   console.log('ws name is: ', wsName);
-
+  console.log('req cookies:', req.cookies)
   const query = `
     INSERT INTO workspace (workspace_name, user_id) 
     VALUES ($1, $2) `;
@@ -29,7 +54,7 @@ workspacesController.addWorkspace = (req, res, next) => {
 
   // to do - check to see if this matches front end req.body
   // REMIND JAVI/AUTUMN THAT WS-NAME NEEDS TO BE WS_NAME
-  db.query(query, [wsName, '11'])
+  db.query(query, [wsName, userId])
     .then(() => { return next() })
     .catch((err) => {
       return next(

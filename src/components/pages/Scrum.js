@@ -26,7 +26,7 @@ function Scrum(props) {
 
   // set state for cards. default to empty array as state and update state as tasks are submitted
   const [cards, setCards] = useState([...dummyCard]);
-
+  // const [currWS, setWS] = useState([''])
   // STRETCH FEATURE:
   // below const allows us to grab state passed from
   // WSSelector to populate our title
@@ -40,6 +40,9 @@ function Scrum(props) {
     // console.log('task data is: ', taskData);
     // console.log('taskdata.entries: ', taskData.entries());
     const taskObj = Object.fromEntries(taskData.entries());
+
+    // HOW TO GET workspace ID?
+    // taskObj.workspaceID =
     // console.log('task obj is:', taskObj);
     fetch('/stickies', {
       method: 'POST',
