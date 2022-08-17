@@ -1,5 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* 
+
+Primary color: #4267B2
+
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color:rgb(177, 245, 245);
+  background-color: #264653;
+  font-family: 'Roboto', sans-serif;
 }
 
 .scrum-header {
@@ -51,6 +66,7 @@ button {
   margin-right: 150px;
   margin-top: 50px;
   border: solid;
+  min-height: 90vh;
 }
 
 .board {
@@ -77,7 +93,75 @@ button {
 
 .login-content {
   display: flex;
+  justify-content: space-between;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: 2rem;
+  background-image: linear-gradient(
+    to bottom,
+    #e9c46a,
+    #ecbe67,
+    #eeb864,
+    #f0b162,
+    #f2ab61,
+    #f2a45e,
+    #f29d5d,
+    #f1965b,
+    #ef8c58,
+    #ed8355,
+    #ea7953,
+    #e76f51
+  );
+  height: 90vh;
+  min-width: 30vw;
+  margin-right: 6rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0.2rem 0.6rem rgb(0, 0, 0, 0.6);
+}
+
+.login-header {
+  align-self: flex-start;
+  margin-bottom: 1rem;
+  font-size: 2.8rem;
+  color: #264653;
+  font-weight: 700;
+  text-align: center;
+}
+
+.logo {
+  margin-left: 10rem;
+  opacity: 0.9;
+}
+
+.login-input {
+  margin-bottom: 1rem;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  border: none;
+  box-shadow: 0 0.1rem 0.2rem rgb(0, 0, 0, 0.6);
+}
+
+input:focus {
+  outline: none;
+}
+
+.loginBtns {
+  display: flex;
+  justify-content: center;
+}
+
+.login-button {
+  background-color: #264653;
+  color: #fff;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  border: none;
 }
 
 .ws-selector-container {
@@ -127,5 +211,14 @@ button {
 .scrum-header {
   display: flex;
   float: right;
-  justify-content: space-between; 
+  justify-content: space-between;
+}
+
+.scrum-buttons {
+  color: black;
+  font: bold 1.5em sans-serif;
+}
+
+.scrum-buttons:hover {
+  cursor: pointer;
 }

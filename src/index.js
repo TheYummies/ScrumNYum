@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './components/App.js';
+import App from './components/App.jsx';
 
 // to bundle styles
 import styles from './app.css';

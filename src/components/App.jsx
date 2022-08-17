@@ -6,11 +6,11 @@ import {
   Link,
   Navigate,
 } from 'react-router-dom';
-import Login from './pages/Login.js';
-import SignUp from './pages/SignUp.js';
-import Settings from './pages/Settings.js';
-import Scrum from './pages/Scrum.js';
-import Error from './pages/Error.js';
+import Login from './pages/Login.jsx';
+import SignUp from './pages/SignUp.jsx';
+import Settings from './pages/Settings.jsx';
+import Scrum from './pages/Scrum.jsx';
+import Error from './pages/Error.jsx';
 
 function App() {
   return (
