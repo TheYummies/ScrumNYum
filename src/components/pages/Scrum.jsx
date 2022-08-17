@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Board from '../Board.jsx';
 import Card from '../Card.jsx';
+import Nav from './Nav.jsx';
 import { useLocation, Link } from 'react-router-dom';
 
 function Scrum(props) {
@@ -81,15 +82,7 @@ function Scrum(props) {
 
   return (
     <div className='scrum-container'>
-      <header className='scrum-header'>
-        {/* <h1>My Workspace</h1> */}
-        <Link to='/settings' className='scrum-buttons'>
-          Settings
-        </Link>
-        <Link to='/' className='scrum-buttons'>
-          Logout
-        </Link>
-      </header>
+      <Nav />
       {/* Form element for post it creation */}
       <main className='scrum-main position-relative'>
         <button className='bg-danger p-1 text-light' onClick={handleNewTask}>
