@@ -17,13 +17,15 @@ app.use(cookieParser()); // allow parsing of req.cookies
 
 // require routers
 const apiRouter = require('./routes/api.js');
+// const accountRouter = require('./routes/account');
 
 
 // serve static assets
 app.use('/src', express.static(path.resolve(__dirname, '../src')));
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
 
-// route to apiRouter
+
+// Router
 app.use('/api', apiRouter);
 
 // get routes
@@ -49,11 +51,10 @@ app.post('/stickies', stickiesController.createStickies, (req, res) => {
 });
 
 // login to sign up
-
 app.post(
   '/login',
   userController.verifyUser,
-  // cookieController.setSSIDCookie,
+  cookieController.setSSIDCookie,
   // sessionController.startSession,
   (req, res) => {
     console.log('login route complete');
@@ -64,7 +65,7 @@ app.post(
 app.post(
   '/signup',
   userController.createUser,
-  // cookieController.setSSIDCookie,
+  cookieController.setSSIDCookie,
   // sessionController.startSession,
   (req, res) => {
     console.log('signup route complete');

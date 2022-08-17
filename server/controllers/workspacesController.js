@@ -17,16 +17,19 @@ const createErr = (errInfo) => {
 // post request to api/workspaces without returning any data - WORKS
 workspacesController.addWorkspace = (req, res, next) => {
   console.log('in workspacesController.addWorkspace');
+
+  const { wsName } = req.body;
+  console.log('ws name is: ', wsName);
+
   const query = `
-    INSERT INTO workspaces (id, workspace_password) 
-    VALUES ($1, $2) 
-    ON CONFLICT (id) DO NOTHING`;
+    INSERT INTO workspace (workspace_name, user_id) 
+    VALUES ($1, $2) `;
   // ON CONFLICT DO WE WANT TO ALERT THE USER THAT IT'S A DUPE?
-  console.log('request body', req.body)
+  // console.log('request body', req.body)
 
   // to do - check to see if this matches front end req.body
   // REMIND JAVI/AUTUMN THAT WS-NAME NEEDS TO BE WS_NAME
-  db.query(query, [req.body.ws_name, req.body.ws_pw])
+  db.query(query, [wsName, '11'])
     .then(() => { return next() })
     .catch((err) => {
       return next(

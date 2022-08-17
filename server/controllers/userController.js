@@ -9,7 +9,7 @@ userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
 
   // console.log(req.body);
-  console.log([username, password]);
+  // console.log([username, password]);
 
   const query = `
   INSERT INTO public.user (username, password)  
@@ -19,9 +19,15 @@ userController.createUser = (req, res, next) => {
   // check if username already exists in db, if not create user or else return to signup page
   db.query(query, [username, password])
     .then((response) => {
-      res.locals.id = username;
-      console.log('query success');
-      return next();
+      const query2 = `SELECT id FROM public.user
+      WHERE username = $1 AND password = $2;`;
+      db.query(query2, [username, password])
+        .then((response) => {
+          // console.log('user ID is: ', response.rows[0].id);
+          res.locals.id = response.rows[0].id;
+          console.log('query success');
+          return next();
+        })
     })
     .catch((err) => {
       return next({

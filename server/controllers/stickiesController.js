@@ -22,7 +22,7 @@ stickiesController.createStickies = (req, res, next) => {
 
   const { taskTitle, taskDesc } = req.body;
   // NOTE: workspace_ID is hard-coded as 1 for now
-  const values = [taskTitle, taskDesc, '1'];
+  const values = [taskTitle, taskDesc, '9'];
 
   // const values = [task-title, task-desc, snack]
   console.log('stickies values: ', values);

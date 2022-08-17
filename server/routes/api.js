@@ -19,10 +19,16 @@ router.delete('/workspaces', workspacesController.deleteWorkspace, (req, res) =>
 
 // WORKS
 // DO WE HAVE ANY REQUEST TO JUST THE /API ENDPOINT?? - ASK JAVI AND AUTUMN
-router.get('/workspaces', workspacesController.getWorkspaces, (req, res) => {
-  return res.status(200).json({ workspaces: res.locals.workspaces });
-});
+// router.get('/workspaces', workspacesController.getWorkspaces, (req, res) => {
+//   return res.status(200).json({ workspaces: res.locals.workspaces });
+// });
 
+
+/*
+
+STICKIES ROUTERS
+
+*/
 // WORKS
 router.post('/stickies', stickiesController.createStickies, (req, res) => {
   console.log('end of create stickies route');
