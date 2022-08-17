@@ -66,19 +66,31 @@ function Scrum(props) {
   const taskSubmit = (event) => {
     event.preventDefault();
     const taskData = new FormData(event.target);
+    // console.log('this is event target: ', event.target);
+    // console.log('task data is: ', taskData);
+    // console.log('taskdata.entries: ', taskData.entries());
     const taskObj = Object.fromEntries(taskData.entries());
-    //form is submitted w/ K/V pairs
+
+    // HOW TO GET workspace ID?
+    // taskObj.workspaceID =
+    // console.log('task obj is:', taskObj);
+    fetch('/stickies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(taskObj)
+    })
+    // .then(() => {
+    //   console.log(taskObj);
+    // })
+    //form is submitted w/ K/V pairs 
     event.target.reset();
     //resets the form to blank inputs
-    console.log('task obj is: ', taskObj);
+    setCards([...cards, taskObj])
+    // console.log('task obj is: ', taskObj);
     // send get request to DB with task info in body
-    // fetch('URL', {
-    // method: 'POST',
-    // body: JSON.stringify(taskObj)
-    // })
-    // populate the card
-    setCards([...cards, taskObj]);
-  };
+  }
 
   return (
     <div className='scrum-container'>
@@ -101,16 +113,16 @@ function Scrum(props) {
               <input
                 required
                 type='text'
-                name='task-title'
-                id='task-title'
+                name='taskTitle'
+                id='taskTitle'
                 placeholder='Title'
               ></input>
               <textarea
                 placeholder='Description'
                 className='stickie-description'
                 form='task_form'
-                id='task-desc'
-                name='task-desc'
+                id='taskDesc'
+                name='taskDesc'
                 rows='10'
                 cols='30'
               ></textarea>

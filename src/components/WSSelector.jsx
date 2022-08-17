@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function WSSelector({workspaces, setWorkspaces}) {
+function WSSelector({ workspaces, setWorkspaces }) {
   //TO DO - STATE MGMT FOR WS DROPDOWN (FETCH DATA FROM USER?)
 
-  
+
 
   return (
     <div className='ws-selector-container'>
@@ -15,7 +15,7 @@ function WSSelector({workspaces, setWorkspaces}) {
         <select className="ws-dropdown" name="ws" id="ws" defaultValue='' >
           <option disabled hidden value=''>My Workspaces</option>
           {/* this needs to be populated with values from DB */}
-          <option value='Example'>Example</option>
+          {/* <option value='Example'>Example</option> */}
           {/* propery reference el.workspace (currently a placeholder value) */}
           {workspaces.map((el) => {
             return (

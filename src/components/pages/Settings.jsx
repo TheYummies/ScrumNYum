@@ -7,7 +7,7 @@ import Nav from './Nav.jsx';
 
 function Settings() {
   // state for workspaces
-  const dummyWs = { id: 'The JitHub Zone' };
+  const dummyWs = { id: 'The JitHub Zone' }
   const [workspaces, setWorkspaces] = useState([dummyWs]);
 
   // get workspaces list from database when page loads

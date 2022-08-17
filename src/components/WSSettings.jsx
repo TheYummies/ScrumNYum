@@ -10,27 +10,28 @@ function WSSettings({ workspaces, setWorkspaces }) {
     const wsName = document.getElementById('ws-name').value;
     // check what wsName
     console.log('workspacename', wsName);
-    const wsPassword = 'password';
+    // const wsPassword = 'password';
     document.getElementById('ws-name').value = '';
     //created the new workspace
     fetch('/api/workspaces', {
       method: 'POST',
       body: JSON.stringify({
-        ws_name: wsName,
-        ws_pw: wsPassword,
+        wsName: wsName,
+        // ws_pw: wsPassword,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {
-      // pull a new list of workspaces
-      fetch('/api/workspaces')
-        .then((result) => result.json())
-        .then((data) => {
-          console.log(data);
-          setWorkspaces(data.workspaces);
-        });
-    });
+    })
+    // .then((res) => {
+    //   // pull a new list of workspaces
+    //   fetch('/api/workspaces')
+    //     .then((result) => result.json())
+    //     .then((data) => {
+    //       console.log(data);
+    //       setWorkspaces(data.workspaces);
+    //     });
+    // });
     // send this to backend to post
   };
 
