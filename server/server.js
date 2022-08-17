@@ -1,11 +1,13 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+// turned off a lot of controllers. if we have time go back and make edits
 
 // import controllers
 const userController = require('./controllers/userController.js');
 const cookieController = require('./controllers/cookieController.js');
 const sessionController = require('./controllers/sessionController.js');
+const stickiesController = require('./controllers/stickiesController.js');
 
 const PORT = 3000;
 const app = express();
@@ -15,6 +17,7 @@ app.use(cookieParser()); // allow parsing of req.cookies
 
 // require routers
 const apiRouter = require('./routes/api.js');
+
 
 // serve static assets
 app.use('/src', express.static(path.resolve(__dirname, '../src')));
@@ -28,14 +31,21 @@ app.get(['/', '/signup'], (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-app.get(['/scrum', '/settings'], sessionController.isLoggedIn, (req, res) => {
-  if (res.locals.signedIn) {
+app.get(['/scrum', '/settings'],
+  // sessionController.isLoggedIn, 
+  (req, res) => {
+    // if (res.locals.signedIn) {
     console.log('user is signed in');
     res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
-  } else {
-    console.log('user not logged in');
-    res.redirect('/');
-  }
+    // } else {
+    //   console.log('user not logged in');
+    //   res.redirect('/');
+    // }
+  });
+
+// create stickies route
+app.post('/stickies', stickiesController.createStickies, (req, res) => {
+  console.log('stickie added!');
 });
 
 // login to sign up
@@ -43,8 +53,8 @@ app.get(['/scrum', '/settings'], sessionController.isLoggedIn, (req, res) => {
 app.post(
   '/login',
   userController.verifyUser,
-  cookieController.setSSIDCookie,
-  sessionController.startSession,
+  // cookieController.setSSIDCookie,
+  // sessionController.startSession,
   (req, res) => {
     console.log('login route complete');
     res.redirect('/scrum');
@@ -54,8 +64,8 @@ app.post(
 app.post(
   '/signup',
   userController.createUser,
-  cookieController.setSSIDCookie,
-  sessionController.startSession,
+  // cookieController.setSSIDCookie,
+  // sessionController.startSession,
   (req, res) => {
     console.log('signup route complete');
     res.redirect('/scrum');

@@ -36,18 +36,29 @@ function Scrum(props) {
   const taskSubmit = (event) => {
     event.preventDefault();
     const taskData = new FormData(event.target);
+    // console.log('this is event target: ', event.target);
+    // console.log('task data is: ', taskData);
+    // console.log('taskdata.entries: ', taskData.entries());
     const taskObj = Object.fromEntries(taskData.entries());
+    // console.log('task obj is:', taskObj);
+    fetch('/stickies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(taskObj)
+    })
+    // .then(() => {
+    //   console.log(taskObj);
+    // })
     //form is submitted w/ K/V pairs 
     event.target.reset();
     //resets the form to blank inputs
-    console.log('task obj is: ', taskObj);
-    // send get request to DB with task info in body
-    // fetch('URL', {
-    // method: 'POST',
-    // body: JSON.stringify(taskObj)
-    // })
-    // populate the card 
     setCards([...cards, taskObj])
+    // console.log('task obj is: ', taskObj);
+    // send get request to DB with task info in body
+
+
   }
 
   return (
@@ -67,14 +78,14 @@ function Scrum(props) {
         <form className='stickie-form' id='task_form' onSubmit={taskSubmit}>
           {/* Title, description, snack */}
           {/* <label htmlFor='task-title'>Title:</label> */}
-          <input required type='text' name='task-title' id='task-title' placeholder='Title' ></input>
+          <input required type='text' name='taskTitle' id='taskTitle' placeholder='Title' ></input>
           {/* <label htmlFor='task-desc'>Description:</label> */}
           <textarea
             placeholder='Description'
             className='stickie-description'
             form='task_form'
-            id='task-desc'
-            name='task-desc'
+            id='taskDesc'
+            name='taskDesc'
             rows='10'
             cols='30'
           ></textarea>
