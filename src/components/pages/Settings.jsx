@@ -3,6 +3,7 @@ import UserSettings from '../UserSettings.jsx';
 import WSSelector from '../WSSelector.jsx';
 import WSSettings from '../WSSettings.jsx';
 import { Link, useNavigate } from 'react-router-dom';
+import Nav from './Nav.jsx';
 
 function Settings() {
   // state for workspaces
@@ -21,6 +22,7 @@ function Settings() {
 
   return (
     <div className='settings-container'>
+      <Nav />
       <header className='settings-header'>
         <h1>Settings</h1>
         <nav className='settings-nav'>
