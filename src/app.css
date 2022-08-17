@@ -143,6 +143,11 @@ button {
   justify-content: space-between;
 }
 
+.scrum-buttons {
+  color: black;
+  font: bold 1.5em sans-serif;
+}
+
 .scrum-buttons:hover {
   cursor: pointer;
 }
