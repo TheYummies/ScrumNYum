@@ -1,12 +1,12 @@
 {
   "name": "scrumnyum",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
-    "build": "webpack --mode=production & npm run start",
+    "start": "--mode=production nodemon server/server.js",
+    "build": "webpack",
     "dev": "concurrently \"cross-env --mode=development webpack-dev-server --hot --color\" \"nodemon ./server/server.js\""
   },
   "repository": {

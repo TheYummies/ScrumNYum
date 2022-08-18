@@ -10,58 +10,32 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+CREATE TABLE public.sessions (
+	"id"
+)
 CREATE TABLE public.user (
-	"UserID" varchar NOT NULL,
-	"Password" varchar NOT NULL,
-	CONSTRAINT "user_pk" PRIMARY KEY ("UserID")
-) WITH (
-  -- what is OIDS???
-  OIDS=FALSE
+	"id" serial NOT NULL UNIQUE,
+	"username" varchar NOT NULL UNIQUE,
+	-- unique ID is created here
+	"password" varchar NOT NULL,
+	PRIMARY KEY ("id")
 );
+
 
 CREATE TABLE public.workspace (
-	"WorkspaceID" varchar NOT NULL,
-	"Workspace_PW" varchar NOT NULL,
-	CONSTRAINT "workspace_pk" PRIMARY KEY ("WorkspaceID")
-) WITH (
-  -- what is OIDS???
-  OIDS=FALSE
+	"id" serial NOT NULL UNIQUE,
+	"workspace_name" varchar NOT NULL,
+	"user_id" serial NOT NULL,
+	PRIMARY KEY ("id"),
+	FOREIGN KEY ("user_id") REFERENCES public.user("id")
 );
+
 
 CREATE TABLE public.stickies (
-	"StickieID" serial NOT NULL,
-	"Title" varchar NOT NULL,
-	"Description" varchar NOT NULL,
-	"Snack_ID" varchar NOT NULL,
-	"Assigned_ID" varchar NOT NULL,
-	"Workspace_ID" varchar NOT NULL,
-	CONSTRAINT "stickies_pk" PRIMARY KEY ("StickieID")
-) WITH (
-  -- what is OIDS???
-  OIDS=FALSE
+	"id" serial NOT NULL UNIQUE,
+	"title" varchar NOT NULL,
+	"description" varchar,
+	"workspace_id" serial NOT NULL,
+	PRIMARY KEY ("id"),
+	FOREIGN KEY ("workspace_id") REFERENCES public.workspace("id")
 );
-
-CREATE TABLE public.snacks (
-	"SnackID" varchar NOT NULL,
-	CONSTRAINT "snacks_pk" PRIMARY KEY ("SnackID")
-) WITH (
-  -- what is OIDS???
-  OIDS=FALSE
-);
-
--- CREATE TABLE public.userWorkspaceJoin (
---   "id" integer NOT NULL,
---   "User_UserID" varchar NOT NULL,
---   "Workspace_WorkspaceID" varchar NOT NULL,
---   CONSTRAINT "userworkspacejoin_pk" PRIMARY KEY ("id")
--- ) WITH (
---   -- what is OIDS???
---   OIDS=FALSE
--- )
-
-ALTER TABLE public.stickies ADD CONSTRAINT "stickies_fk0" FOREIGN KEY ("Snack_ID") REFERENCES  public.snacks("SnackID");
-ALTER TABLE public.stickies ADD CONSTRAINT "stickies_fk1" FOREIGN KEY ("Assigned_ID") REFERENCES  public.user("UserID");
-ALTER TABLE public.stickies ADD CONSTRAINT "stickies_fk2" FOREIGN KEY ("Workspace_ID") REFERENCES  public.workspace("WorkspaceID");
-
--- ALTER TABLE public.userWorkspaceJoin ADD CONSTRAINT "userworkspacejoin_fk0" FOREIGN KEY ("User_UserID") REFERENCES  public.user("UserID");
--- ALTER TABLE public.userWorkspaceJoin ADD CONSTRAINT "userworkspacejoin_fk1" FOREIGN KEY ("Workspace_WorkspaceID") REFERENCES  public.workspace("WorkspaceID");

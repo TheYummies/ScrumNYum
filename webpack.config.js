@@ -39,11 +39,11 @@ module.exports = {
       directory: path.resolve(__dirname, 'dist'),
       publicPath: 'dist',
     },
-    port: 8080,
+    // port: 8080,
     historyApiFallback: true,
     hot: true,
     proxy: {
-      '/': 'http://localhost:3000',
+      '/': 'http://localhost:3000/',
     },
   },
 };
